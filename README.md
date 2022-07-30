@@ -7,6 +7,20 @@
 
 ## Usage
 
+Build an image and run script:
+
+```
+docker build -t flameshot .
+./flameshot
+```
+
+Script mounts few volumes:
+
+* `~/.config/flameshot` - flameshot config
+* `~/Documents/Screenshots` - folder to store screenshots
+
+You should create them or edit [flameshot script](./flameshot) according to your needs.
+
 ```
 docker build -t flameshot .
 ./flameshot
