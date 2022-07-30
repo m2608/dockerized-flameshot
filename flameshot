@@ -1,0 +1,18 @@
+#!/bin/sh
+
+HOSTNAME=`hostname`
+KEY=`xauth list | grep "$HOSTNAME" | tr -s ' ' | cut -d ' ' -f 3 | head -n 1`
+DCK_HOST=docker-flameshot
+xauth add $DCK_HOST/unix$DISPLAY . $KEY
+
+docker run -it --rm \
+    --detach \
+    -e DISPLAY=unix$DISPLAY \
+    -v /tmp/.X11-unix:/tmp/.X11-unix \
+    -v ~/.Xauthority:/root/.Xauthority \
+    -v ~/.config/flameshot:/root/.config/flameshot \
+    -v $HOME/Documents/Screenshots:/root/Screenshots \
+    -e XAUTHORITY=/root/.Xauthority \
+    -h docker-flameshot \
+    --name flameshot \
+    void:flameshot 
